@@ -33,6 +33,9 @@ const Sidebar = () => {
                   )
                 })
               }
+
+            </ul>
+            <ul className='sidebar-nav_elemts'>
               {
                 navLinks.slice(6).map((link) => {
                   const isActive = link.route == pathName;
@@ -46,8 +49,6 @@ const Sidebar = () => {
                   )
                 })
               }
-            </ul>
-            <ul>
               <li className='flex-center cursor-pointer gap-2 p-4'>
                 <UserButton afterSignOutUrl='/' showName />
               </li>
