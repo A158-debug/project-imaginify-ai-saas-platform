@@ -11,10 +11,10 @@ const AddTransformationTypePage = async ({ params: { type } }: SearchParamProps)
   const transformationType = transformationTypes[type];
 
   const { userId } = auth();
-  if (!userId) {
-    redirect('/sign-in');
-    return null;
-  }
+  // console.log("userId line 14", userId);
+  if (!userId) redirect('/sign-in');
+
+  //! Need to check
   const user = await getUserById(userId);
 
   return (
@@ -23,15 +23,17 @@ const AddTransformationTypePage = async ({ params: { type } }: SearchParamProps)
         title={transformationType.title}
         subtitle={transformationType.subTitle}
       />
-      <TransformationForm
-        action="Add"
-        userId={user._id}
-        type={transformationType.type as TransformationTypeKey}
-        creditBalance={user.creditBalance} />
+      <section className="mt-10">
+        <TransformationForm
+          action="Add"
+          userId={user._id}
+          type={transformationType.type as TransformationTypeKey}
+          creditBalance={user.creditBalance}
+        />
+      </section>
     </>
   )
 }
 
 export default AddTransformationTypePage
-
 // http://localhost:3000/transformatype 

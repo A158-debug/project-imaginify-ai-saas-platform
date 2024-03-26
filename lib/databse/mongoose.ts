@@ -15,6 +15,8 @@ if(!cached) {
 }
 
 export  const connectToDatabase = async () => {
+    // console.log('MONGODB_URL',MONGODB_URL);
+    // console.log('cached.conn',cached.conn);
     if(cached.conn)  return cached.conn;
     
     if(!MONGODB_URL) throw new Error('MONGODB_URL is not defined');
@@ -22,5 +24,6 @@ export  const connectToDatabase = async () => {
     cached.promise =  cached.promise || mongoose.connect(MONGODB_URL, {dbName:'imaginify',bufferCommands:false});
 
     cached.conn = await cached.promise;
+    // console.log('cached.conn',cached.conn);
     return cached.conn;
 }

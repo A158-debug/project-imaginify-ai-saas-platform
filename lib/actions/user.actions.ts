@@ -1,3 +1,5 @@
+"use server"
+
 import { handleError } from "../utils";
 import { connectToDatabase } from "../databse/mongoose";
 import User from "../databse/models/user.model";
@@ -17,14 +19,17 @@ export async function createUser(user: CreateUserParams) {
 
 // Read
 export async function getUserById(userId: string) {
+  // console.log("userId", userId);
   try {
     await connectToDatabase();
 
     const user = await User.findOne({ clerkId: userId });
+    // console.log("user is not found line 25", user);
     if (!user) throw new Error("User not found");
 
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
+    // console.log("error in line 30", error);
     handleError(error);
   }
 }
@@ -52,7 +57,7 @@ export async function deleteUser(clerkId: string) {
 
     // find user to delete
     const userToDelete = await User.findOne({ clerkId });
-    if (!userToDelete) throw new Error("User not found");
+    if (!userToDelete) throw new Error("Deleting User failed");
 
     //Deleted User
     const deletedUser = await User.findOneAndDelete(userToDelete._id);
